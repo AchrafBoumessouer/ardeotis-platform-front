@@ -1,27 +1,35 @@
 // Angular import
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-auth-register',
-  imports: [RouterModule],
+  imports: [RouterModule,FormsModule],
   templateUrl: './auth-register.component.html',
   styleUrl: './auth-register.component.scss'
 })
 export class AuthRegisterComponent {
-  // public method
-  SignUpOptions = [
-    {
-      image: 'assets/images/authentication/google.svg',
-      name: 'Google'
+   email = '';
+   password = '';
+   firstName = '';
+   lastName = '';
+ constructor( private router: Router, private authService: AuthService ) {}
+
+onRegister() {
+  this.authService.register(this.email,
+    this.password,this.firstName,this.lastName
+  ).subscribe({
+    next: (res) => {
+     localStorage.setItem('token', res.token);
+     this.router.navigate(['/home']);
     },
-    {
-      image: 'assets/images/authentication/twitter.svg',
-      name: 'Twitter'
-    },
-    {
-      image: 'assets/images/authentication/facebook.svg',
-      name: 'Facebook'
+    error: (err) => {
+      console.error('credentials incorrect')
+
     }
-  ];
+  })
+}
+
 }

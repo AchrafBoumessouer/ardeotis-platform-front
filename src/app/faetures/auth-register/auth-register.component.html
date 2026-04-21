@@ -10,56 +10,34 @@
             <h3 class="mb-0"><b>Sign up</b></h3>
             <a [routerLink]="['/login']" class="link-primary">Already have an account?</a>
           </div>
-          <div class="row">
+          <form (ngSubmit)="onRegister()">
+        <div class="row">
             <div class="col-md-6">
               <div class="form-group mb-3">
                 <label class="form-label" for="firstName">First Name*</label>
-                <input type="text" class="form-control" id="firstName" placeholder="First Name" />
+                <input type="text" class="form-control" id="firstName" name="firstName" [(ngModel)]="firstName" required placeholder="First Name" />
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group mb-3">
                 <label class="form-label" for="lastName">Last Name*</label>
-                <input type="text" class="form-control" id="lastName" placeholder="Last Name" />
+                <input type="text" class="form-control" id="lastName" name="lastName" [(ngModel)]="lastName" required placeholder="Last Name" />
               </div>
             </div>
           </div>
           <div class="form-group mb-3">
-            <label class="form-label" for="company">Company</label>
-            <input type="text" class="form-control" id="company" placeholder="Company" />
-          </div>
-          <div class="form-group mb-3">
             <label class="form-label" for="emailAddress">Email Address*</label>
-            <input type="email" class="form-control" id="emailAddress" placeholder="Email Address" />
+            <input type="email" class="form-control" id="emailAddress" name="email" [(ngModel)]="email" required placeholder="Email Address" />
           </div>
           <div class="form-group mb-3">
             <label class="form-label" for="password">Password</label>
-            <input type="password" class="form-control" id="password" placeholder="Password" />
+            <input type="password" class="form-control" id="password" name="password" [(ngModel)]="password" required placeholder="Password" />
           </div>
-          <p class="mt-4 text-sm text-muted">
-            By Signing up, you agree to our
-            <a href="javascript:" class="text-primary">Terms of Service</a>
-            and
-            <a href="javascript:" class="text-primary">Privacy Policy</a>
-          </p>
           <div class="d-grid mt-3">
-            <button type="button" class="btn btn-primary">Create Account</button>
+            <button type="submit" class="btn btn-primary">Create Account</button>
           </div>
-          <div class="saprator mt-3">
-            <span>Sign up with</span>
-          </div>
-          <div class="row">
-            @for (item of SignUpOptions; track item) {
-              <div class="col-4">
-                <div class="d-grid">
-                  <button type="button" class="btn mt-2 btn-light-primary bg-light text-muted">
-                    <img src="{{ item.image }}" alt="google img" />
-                    <span class="d-none d-sm-inline-block">{{ item.name }}</span>
-                  </button>
-                </div>
-              </div>
-            }
-          </div>
+          </form>
+
         </div>
       </div>
       <div class="auth-footer row">
@@ -67,16 +45,10 @@
         <div class="col my-1">
           <p class="m-0">
             Copyright ©
-            <a href="https://codedthemes.com/" target="_blank">CodedThemes</a>
+            Ardeotis
           </p>
         </div>
-        <div class="col-auto my-1">
-          <ul class="list-inline footer-link mb-0">
-            <li class="list-inline-item"><a href="https://codedthemes.com/" target="_blank">Home</a></li>
-            <li class="list-inline-item"><a href="https://codedthemes.com/privacy-policy/" target="_blank">Privacy Policy</a></li>
-            <li class="list-inline-item"><a href="https://codedthemes.support-hub.io/" target="_blank">Contact us</a></li>
-          </ul>
-        </div>
+      
         <!-- </div> -->
       </div>
     </div>
