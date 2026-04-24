@@ -5,11 +5,13 @@ import { AuthRegisterComponent } from './faetures/auth-register/auth-register.co
 import { DefaultComponent } from './faetures/dashboard/default/default.component';
 import { AdminLayout } from './faetures/theme/layouts/admin-layout/admin-layout.component';
 import { GuestLayoutComponent } from './faetures/theme/layouts/guest-layout/guest-layout.component';
+import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
  {
     path: '',
     component: AdminLayout,
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',
