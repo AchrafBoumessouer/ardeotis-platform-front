@@ -23,7 +23,8 @@ export interface ConsultantRequestDto {
 
 export enum ConsultantStatus{
 AVAILABLE,
-ACTIVE
+ON_MISSION,
+UNAVAILABLE
 }
 
 @Injectable({

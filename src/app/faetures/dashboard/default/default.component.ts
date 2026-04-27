@@ -9,6 +9,7 @@ import { FallOutline, GiftOutline, MessageOutline, RiseOutline, SettingOutline }
 import { ConsultantResponseDto, ConsultantService } from '../../../services/consultant.service';
 import { MatIconModule } from '@angular/material/icon';
 import {  MatDialog } from '@angular/material/dialog';
+import { ConsultantModalComponent } from '../../modal/consultant-modal.component';
 
 @Component({
   selector: 'app-default',
@@ -53,12 +54,50 @@ export class DefaultComponent implements OnInit {
     'actions'
   ]
 
+  openAddModal(): void {
+  const dialogRef = this.dialog.open(ConsultantModalComponent,{
+    width: '600px',
+    data: {
+      mode: 'ADD',
+      consultant: null
+    }
+  })
+  dialogRef.afterClosed().subscribe(result =>{
+    if (result) {
+      this.consultantService.create(result).subscribe(() => {
+        this.loadConsultants()
+      })
+    }
+  })
+ }
+
+
  openViewModal(consultant:ConsultantResponseDto): void{
-  console.log('ddd')
+ const dialogRef = this.dialog.open(ConsultantModalComponent,{
+    width: '600px',
+    data: {
+      mode: 'VIEW',
+      consultant: consultant
+    }
+  })
  }
 
  openEditModal(consultant:ConsultantResponseDto): void{
-  console.log('ddd')
+const dialogRef = this.dialog.open(ConsultantModalComponent,{
+    width: '600px',
+    data: {
+      mode: 'EDIT',
+      consultant: consultant
+    }
+  })
+  dialogRef.afterClosed().subscribe(result =>{
+    if (result) {
+      console.log('edit',result)
+      this.consultantService.update(result.id, result).subscribe(() => {
+        this.loadConsultants()
+      })
+    }
+  })
  }
 
  openDeleteModal(consultant:ConsultantResponseDto): void {

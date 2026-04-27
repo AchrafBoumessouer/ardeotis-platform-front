@@ -46,3 +46,9 @@
 .actions button:hover{
   transform: scale(1.1);
 }
+.table-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
