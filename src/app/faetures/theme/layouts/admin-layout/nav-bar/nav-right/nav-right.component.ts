@@ -1,6 +1,6 @@
 // angular import
 import { Component, output, inject, input } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 // project import
 
@@ -37,6 +37,7 @@ import { SharedModule } from '../../../../shared/shared.module';
 })
 export class NavRightComponent {
   private iconService = inject(IconService);
+  private router = inject(Router)
 
   // public props
   styleSelectorToggle = input<boolean>();
@@ -73,22 +74,7 @@ export class NavRightComponent {
   }
 
   profile = [
-    {
-      icon: 'edit',
-      title: 'Edit Profile'
-    },
-    {
-      icon: 'user',
-      title: 'View Profile'
-    },
-    {
-      icon: 'profile',
-      title: 'Social Profile'
-    },
-    {
-      icon: 'wallet',
-      title: 'Billing'
-    },
+ 
     {
       icon: 'logout',
       title: 'Logout'
@@ -117,4 +103,9 @@ export class NavRightComponent {
       title: 'History'
     }
   ];
+
+  logout() {
+    localStorage.removeItem('token');
+    this.router.navigate(['/login'])
+  }
 }

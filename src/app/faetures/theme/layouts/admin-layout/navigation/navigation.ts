@@ -27,7 +27,7 @@ export const NavigationItems: NavigationItem[] = [
     children: [
       {
         id: 'default',
-        title: 'Default',
+        title: 'Consultants',
         type: 'item',
         classes: 'nav-item',
         url: '/dashboard/default',
@@ -38,30 +38,11 @@ export const NavigationItems: NavigationItem[] = [
   },
   {
     id: 'authentication',
-    title: 'Authentication',
+    title: 'Missions',
     type: 'group',
     icon: 'icon-navigation',
     children: [
-      {
-        id: 'login',
-        title: 'Login',
-        type: 'item',
-        classes: 'nav-item',
-        url: '/login',
-        icon: 'login',
-        target: true,
-        breadcrumbs: false
-      },
-      {
-        id: 'register',
-        title: 'Register',
-        type: 'item',
-        classes: 'nav-item',
-        url: '/register',
-        icon: 'profile',
-        target: true,
-        breadcrumbs: false
-      }
+    
     ]
   },
   
