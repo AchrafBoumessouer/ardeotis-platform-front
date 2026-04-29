@@ -2,29 +2,50 @@ import { Routes } from '@angular/router';
 import { Home } from './faetures/home/pages/home/home';
 import { AuthLoginComponent } from './faetures/auth-login/auth-login.component';
 import { AuthRegisterComponent } from './faetures/auth-register/auth-register.component';
+import { DefaultComponent } from './faetures/dashboard/default/default.component';
+import { AdminLayout } from './faetures/theme/layouts/admin-layout/admin-layout.component';
+import { GuestLayoutComponent } from './faetures/theme/layouts/guest-layout/guest-layout.component';
+import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
-    {
+ {
+    path: '',
+    component: AdminLayout,
+    canActivate: [AuthGuard],
+    children: [
+      {
         path: '',
-        redirectTo: 'login',
+        redirectTo: '/dashboard/default',
         pathMatch: 'full'
-    },
-    {
-        path: 'register',
-        component: AuthRegisterComponent
-    },
-     {
+      },
+      {
+        path: 'dashboard/default',
+        component: DefaultComponent
+      },
+      {
+         path: 'home',
+        component: Home
+      }
+     
+    ]
+  },
+  {
+    path: '',
+    component: GuestLayoutComponent,
+    children: [
+      {
         path: 'login',
         component: AuthLoginComponent
-    },
+      },
       {
-        path: 'home',
-        component: Home
-    },
-     {
-        path: '**',
-        redirectTo: 'login'
-    },
-    
+        path: 'register',
+        component: AuthRegisterComponent
+      }
+    ]
+  },
+  {
+        path: 'register',
+        redirectTo: '/dashboard/default',
+  }
 
 ];

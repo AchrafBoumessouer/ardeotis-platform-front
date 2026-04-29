@@ -1,0 +1,76 @@
+<div class="row">
+
+
+  <div class="col-md-12 col-xl-8">
+    <div class="table-header">
+      <h5 class="mb-3">Consultants</h5>
+    <button mat-raised-button color="primary" style="margin-left: auto" (click)="openAddModal()">ajouter consultant</button>
+    </div>
+    
+    <div class="card tbl-card">
+      <div class="table-responsive">
+        <table mat-table [dataSource]="consultants" class="mat-elevation-z8">
+
+  
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef> No. </th>
+
+    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="firstName">
+    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="lastName">
+    <th mat-header-cell *matHeaderCellDef> Last name </th>
+    <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="email">
+    <th mat-header-cell *matHeaderCellDef> email </th>
+    <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="status">
+    <th mat-header-cell *matHeaderCellDef> STATUS </th>
+    <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="available">
+    <th mat-header-cell *matHeaderCellDef> available </th>
+    <td mat-cell *matCellDef="let element"> {{element.available}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+  <th mat-header-cell *matHeaderCellDef>Actions </th>
+  <td mat-cell *matCellDef="let row">
+    <div class="actions">
+      <button mat-icon-button  class="iconbutton" color="primary" (click)="openViewModal(row)">
+        <mat-icon >visibility</mat-icon>
+      </button>
+    <button mat-icon-button  class="iconbutton" color="primary" (click)="openEditModal(row)">
+        <mat-icon >edit</mat-icon>
+      </button>
+    <button mat-icon-button class="iconbutton" color="warn" (click)="openDeleteModal(row)">
+        <mat-icon aria-label="Delete">delete</mat-icon>
+      </button>
+    </div>
+    </td>
+</ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+      </div>
+    </div>
+  </div>
+
+  <!-- [ sample-page ] end -->
+</div>
