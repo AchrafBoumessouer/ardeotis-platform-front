@@ -10,6 +10,7 @@ import { ConsultantResponseDto, ConsultantService } from '../../../services/cons
 import { MatIconModule } from '@angular/material/icon';
 import {  MatDialog } from '@angular/material/dialog';
 import { ConsultantModalComponent } from '../../modal/consultant-modal.component';
+import { MissionService } from '../../../services/consultant.service copy';
 
 @Component({
   selector: 'app-default',
@@ -26,6 +27,7 @@ import { ConsultantModalComponent } from '../../modal/consultant-modal.component
 export class DefaultComponent implements OnInit {
   private iconService = inject(IconService);
   private consultantService = inject(ConsultantService);
+   private missionService = inject(MissionService);
   private dialog = inject(MatDialog)
 
   // constructor
