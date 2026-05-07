@@ -10,7 +10,7 @@ import { ConsultantResponseDto, ConsultantService } from '../../../services/cons
 import { MatIconModule } from '@angular/material/icon';
 import {  MatDialog } from '@angular/material/dialog';
 import { ConsultantModalComponent } from '../../modal/consultant-modal.component';
-import { MissionService } from '../../../services/mission.service';
+import { MissionResponseDto, MissionService } from '../../../services/mission.service';
 
 @Component({
   selector: 'app-default',
@@ -21,13 +21,12 @@ import { MissionService } from '../../../services/mission.service';
      
     
   ],
-  templateUrl: './default.component.html',
-  styleUrls: ['./default.component.scss']
+  templateUrl: './mission.component.html',
+  styleUrls: ['./mission.component.scss']
 })
-export class DefaultComponent implements OnInit {
+export class MissionComponent implements OnInit {
   private iconService = inject(IconService);
-  private consultantService = inject(ConsultantService);
-   private missionService = inject(MissionService);
+  private missionService = inject(MissionService);
   private dialog = inject(MatDialog)
 
   // constructor
@@ -36,24 +35,23 @@ export class DefaultComponent implements OnInit {
   
   }
   ngOnInit():void{
-    this.loadConsultants()
+    this.loadMissions()
   }
-  loadConsultants(){
-    this.consultantService.getAll().subscribe(res => {
-      this.consultants = res;
+  loadMissions(){
+    this.missionService.getAll().subscribe(res => {
+      this.missions = res;
       this.cd.detectChanges();
     }
     );
   }
-  consultants: any = [];
+  missions: any = [];
   displayedColumns: string[] = [
     'id',
-    'firstName',
-    'lastName',
-    'email',
+    'client',
+    'title',
     'status',
-    'available',
-    'actions'
+    'startDate',
+    'endDate'
   ]
 
   openAddModal(): void {
@@ -66,48 +64,48 @@ export class DefaultComponent implements OnInit {
   })
   dialogRef.afterClosed().subscribe(result =>{
     if (result) {
-      this.consultantService.create(result).subscribe(() => {
-        this.loadConsultants()
+      this.missionService.create(result).subscribe(() => {
+        this.loadMissions()
       })
     }
   })
  }
 
 
- openViewModal(consultant:ConsultantResponseDto): void{
+ openViewModal(mission:MissionResponseDto): void{
  const dialogRef = this.dialog.open(ConsultantModalComponent,{
     width: '600px',
     data: {
       mode: 'VIEW',
-      consultant: consultant
+      consultant: mission
     }
   })
  }
 
- openEditModal(consultant:ConsultantResponseDto): void{
+ openEditModal(mission:MissionResponseDto): void{
 const dialogRef = this.dialog.open(ConsultantModalComponent,{
     width: '600px',
     data: {
       mode: 'EDIT',
-      consultant: consultant
+      consultant: mission
     }
   })
   dialogRef.afterClosed().subscribe(result =>{
     if (result) {
       console.log('edit',result)
-      this.consultantService.update(result.id, result).subscribe(() => {
-        this.loadConsultants()
+      this.missionService.update(result.id, result).subscribe(() => {
+        this.loadMissions()
       })
     }
   })
  }
 
- openDeleteModal(consultant:ConsultantResponseDto): void {
-  const confirmed = confirm(`Supprimer ${consultant.firstName} ${consultant.lastName}`)
+ openDeleteModal(mission:MissionResponseDto): void {
+  const confirmed = confirm(`Supprimer ${mission.client} ${mission.title}`)
   if(confirmed) {
-    this.consultantService.delete(consultant.id).subscribe({
+    this.missionService.delete(mission.id).subscribe({
       next: () => {
-        this.loadConsultants()
+        this.loadMissions()
       }
     })
   }

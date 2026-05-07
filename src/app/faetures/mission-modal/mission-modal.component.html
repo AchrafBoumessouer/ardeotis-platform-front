@@ -1,0 +1,39 @@
+<h2 mat-dialog-title>{{title}}</h2>
+
+<mat-dialog-content>
+    <form [formGroup]="form" class="consultant-form">
+        <mat-form-field appearence="outline" class="w-100">
+            <mat-label>Client</mat-label>
+            <input matInput formControlName="client">
+        </mat-form-field>
+
+        <mat-form-field appearence="outline" class="w-100">
+            <mat-label>Title</mat-label>
+            <input matInput formControlName="title">
+        </mat-form-field>
+
+        <mat-form-field appearence="outline" class="w-100">
+            <mat-label>Status </mat-label>
+            <input matInput formControlName="status">
+        </mat-form-field>
+
+        <mat-form-field appearence="outline" class="w-100">
+            <mat-label>Skills </mat-label>
+            <input matInput formControlName="skills">
+        </mat-form-field>
+
+
+        <mat-form-field appearence="outline" class="w-100">
+            <mat-label>Status </mat-label>
+            <input matInput formControlName="releasedAt" [matDatepicker]="releasedAtPicker">
+            <mat-datepicker #releasedAtPicker>
+            </mat-datepicker>
+        </mat-form-field>
+
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-button (click)="close()">Fermer</button>
+    @if(mode !== 'VIEW'){<button mat-raised-button color="primary" (click)="save()">Enregistrer</button>}
+</mat-dialog-actions>
