@@ -52,7 +52,8 @@ export class MissionComponent implements OnInit {
     'title',
     'status',
     'startDate',
-    'endDate'
+    'endDate',
+    'actions'
   ]
 
   openAddModal(): void {
@@ -78,7 +79,7 @@ export class MissionComponent implements OnInit {
     width: '600px',
     data: {
       mode: 'VIEW',
-      consultant: mission
+      mission: mission
     }
   })
  }
@@ -88,7 +89,7 @@ const dialogRef = this.dialog.open(MissionModalComponent,{
     width: '600px',
     data: {
       mode: 'EDIT',
-      consultant: mission
+      mission: mission
     }
   })
   dialogRef.afterClosed().subscribe(result =>{

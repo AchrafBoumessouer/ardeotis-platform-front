@@ -24,10 +24,16 @@
 
 
         <mat-form-field appearence="outline" class="w-100">
-            <mat-label>Status </mat-label>
-            <input matInput formControlName="releasedAt" [matDatepicker]="releasedAtPicker">
-            <mat-datepicker #releasedAtPicker>
-            </mat-datepicker>
+            <mat-label>satrt date  </mat-label>
+            <input matInput formControlName="startDate" [matDatepicker]="releasedAtPicker">
+                 <mat-datepicker-toggle matIconSuffix [for]="releasedAtPicker">
+            </mat-datepicker-toggle ><mat-datepicker #releasedAtPicker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field appearence="outline" class="w-100">
+            <mat-label>end date </mat-label>
+            <input matInput formControlName="endDate" [matDatepicker]="releasedAtPicker1">
+            <mat-datepicker-toggle matIconSuffix [for]="releasedAtPicker1">
+            </mat-datepicker-toggle ><mat-datepicker #releasedAtPicker1></mat-datepicker>
         </mat-form-field>
 
     </form>
