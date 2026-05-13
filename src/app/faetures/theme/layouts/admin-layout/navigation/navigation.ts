@@ -42,6 +42,15 @@ export const NavigationItems: NavigationItem[] = [
     type: 'group',
     icon: 'icon-navigation',
     children: [
+        {
+        id: 'default',
+        title: 'Missions',
+        type: 'item',
+        classes: 'nav-item',
+        url: '/dashboard/missions',
+        icon: 'dashboard',
+        breadcrumbs: false
+      }
     
     ]
   },

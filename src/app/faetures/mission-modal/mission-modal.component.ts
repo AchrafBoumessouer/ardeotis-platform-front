@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators, ɵInternalFormsSharedModule, Reacti
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatDialogContent, MatDialogActions, MatDialogModule } from "@angular/material/dialog";
 import { MatFormField } from "@angular/material/form-field";
 import { MatSelectModule } from "@angular/material/select";
-import { MatOptionModule } from "@angular/material/core";
+import { MatNativeDateModule, MatOptionModule } from "@angular/material/core";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatInputModule } from "@angular/material/input";
 import { MatDatepickerModule } from "@angular/material/datepicker";
@@ -15,7 +15,7 @@ export type ModalMode = 'ADD' | 'EDIT' | 'VIEW';
     selector: 'app-mission-modal',
     templateUrl: './mission-modal.component.html',
     standalone:true,
-    imports: [MatDialogContent, MatDatepickerModule, CommonModule,MatInputModule, ɵInternalFormsSharedModule, MatCheckboxModule, ReactiveFormsModule, MatDialogActions, MatDialogModule, MatFormField, MatSelectModule, MatOptionModule]
+    imports: [MatDialogContent, MatDatepickerModule,MatNativeDateModule,MatDatepickerModule, CommonModule,MatInputModule, ɵInternalFormsSharedModule, MatCheckboxModule, ReactiveFormsModule, MatDialogActions, MatDialogModule, MatFormField, MatSelectModule, MatOptionModule]
 })
 export class MissionModalComponent implements OnInit {
     form!: FormGroup;

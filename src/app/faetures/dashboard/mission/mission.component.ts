@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import {  MatDialog } from '@angular/material/dialog';
 import { ConsultantModalComponent } from '../../modal/consultant-modal.component';
 import { MissionResponseDto, MissionService } from '../../../services/mission.service';
+import { MissionModalComponent } from '../../mission-modal/mission-modal.component';
 
 @Component({
   selector: 'app-default',
@@ -55,7 +56,7 @@ export class MissionComponent implements OnInit {
   ]
 
   openAddModal(): void {
-  const dialogRef = this.dialog.open(ConsultantModalComponent,{
+  const dialogRef = this.dialog.open(MissionModalComponent,{
     width: '600px',
     data: {
       mode: 'ADD',
@@ -73,7 +74,7 @@ export class MissionComponent implements OnInit {
 
 
  openViewModal(mission:MissionResponseDto): void{
- const dialogRef = this.dialog.open(ConsultantModalComponent,{
+ const dialogRef = this.dialog.open(MissionModalComponent,{
     width: '600px',
     data: {
       mode: 'VIEW',
@@ -83,7 +84,7 @@ export class MissionComponent implements OnInit {
  }
 
  openEditModal(mission:MissionResponseDto): void{
-const dialogRef = this.dialog.open(ConsultantModalComponent,{
+const dialogRef = this.dialog.open(MissionModalComponent,{
     width: '600px',
     data: {
       mode: 'EDIT',
