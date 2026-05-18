@@ -3,6 +3,8 @@ import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { MatTableModule } from "@angular/material/table";
+import { MatPaginatorModule } from "@angular/material/paginator";
+import { PageEvent } from "@angular/material/paginator";
 // icons
 import { IconService, IconDirective } from '@ant-design/icons-angular';
 import { FallOutline, GiftOutline, MessageOutline, RiseOutline, SettingOutline } from '@ant-design/icons-angular/icons';
@@ -18,6 +20,7 @@ import { MissionService } from '../../../services/mission.service';
     CommonModule,
     MatTableModule,
     MatIconModule,
+    MatPaginatorModule,
      
     
   ],
@@ -29,6 +32,9 @@ export class DefaultComponent implements OnInit {
   private consultantService = inject(ConsultantService);
    private missionService = inject(MissionService);
   private dialog = inject(MatDialog)
+  totalElements = 0;
+  pageSize = 10 ;
+  pageIndex = 0;
 
   // constructor
   constructor(private cd: ChangeDetectorRef) {
@@ -39,8 +45,12 @@ export class DefaultComponent implements OnInit {
     this.loadConsultants()
   }
   loadConsultants(){
-    this.consultantService.getAll().subscribe(res => {
-      this.consultants = res;
+    this.consultantService.getAll(this.pageIndex,this.pageSize).subscribe(res => {
+      this.consultants = res.content;
+      this.pageSize = res.size;
+      this.pageIndex = res.number;
+      this.totalElements = res.totalElements
+
       this.cd.detectChanges();
     }
     );
@@ -111,6 +121,12 @@ const dialogRef = this.dialog.open(ConsultantModalComponent,{
       }
     })
   }
+ }
+
+ onPageChange(event: PageEvent) {
+  this.pageIndex = event.pageIndex;
+  this.pageSize = event.pageSize;
+  this.loadConsultants();
  }
 
  

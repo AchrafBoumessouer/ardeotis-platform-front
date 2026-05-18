@@ -23,7 +23,14 @@ export interface MissionRequestDto {
     startDate: Date,
     endDate: Date, 
 }
-
+export interface PageResponse<T> {
+    
+    content: T [];
+    totalElements: number;
+    totalPages: number;
+    size:number;
+    number: number;
+}
 
 
 @Injectable({
@@ -33,8 +40,8 @@ export class MissionService {
     private readonly http = inject(HttpClient);
     private readonly apiUrl = 'http://localhost:8080/api/v1/missions'
     
-    getAll(): Observable<MissionResponseDto[]> {
-     return this.http.get<MissionResponseDto[]>(this.apiUrl);
+    getAll(page: number, size: number): Observable<PageResponse<MissionResponseDto>> {
+     return this.http.get<PageResponse<MissionResponseDto>>(this.apiUrl, { params: { page, size}});
     }
 
     getById(id: string): Observable<MissionResponseDto> {

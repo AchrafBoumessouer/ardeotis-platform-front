@@ -21,6 +21,15 @@ export interface ConsultantRequestDto {
     skills: string[];
 }
 
+export interface PageResponse<T> {
+    
+    content: T [];
+    totalElements: number;
+    totalPages: number;
+    size:number;
+    number: number;
+}
+
 export enum ConsultantStatus{
 AVAILABLE,
 ON_MISSION,
@@ -34,8 +43,8 @@ export class ConsultantService {
     private readonly http = inject(HttpClient);
     private readonly apiUrl = 'http://localhost:8080/api/v1/consultants'
     
-    getAll(): Observable<ConsultantResponseDto[]> {
-     return this.http.get<ConsultantResponseDto[]>(this.apiUrl);
+    getAll(page: number, size: number): Observable<PageResponse<ConsultantResponseDto>> {
+     return this.http.get<PageResponse<ConsultantResponseDto>>(this.apiUrl, { params: { page, size}});
     }
 
     getById(id: string): Observable<ConsultantResponseDto> {
