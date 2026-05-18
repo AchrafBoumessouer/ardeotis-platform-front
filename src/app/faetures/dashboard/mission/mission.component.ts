@@ -9,6 +9,8 @@ import { FallOutline, GiftOutline, MessageOutline, RiseOutline, SettingOutline }
 import { ConsultantResponseDto, ConsultantService } from '../../../services/consultant.service';
 import { MatIconModule } from '@angular/material/icon';
 import {  MatDialog } from '@angular/material/dialog';
+import { MatPaginatorModule } from "@angular/material/paginator";
+import { PageEvent } from "@angular/material/paginator";
 import { ConsultantModalComponent } from '../../modal/consultant-modal.component';
 import { MissionResponseDto, MissionService } from '../../../services/mission.service';
 import { MissionModalComponent } from '../../mission-modal/mission-modal.component';
@@ -19,6 +21,7 @@ import { MissionModalComponent } from '../../mission-modal/mission-modal.compone
     CommonModule,
     MatTableModule,
     MatIconModule,
+    MatPaginatorModule,
      
     
   ],
@@ -29,6 +32,9 @@ export class MissionComponent implements OnInit {
   private iconService = inject(IconService);
   private missionService = inject(MissionService);
   private dialog = inject(MatDialog)
+  totalElements = 0;
+  pageSize = 10 ;
+  pageIndex = 0;
 
   // constructor
   constructor(private cd: ChangeDetectorRef) {
@@ -39,9 +45,11 @@ export class MissionComponent implements OnInit {
     this.loadMissions()
   }
   loadMissions(){
-    this.missionService.getAll().subscribe(res => {
-      this.missions = res;
-      this.cd.detectChanges();
+    this.missionService.getAll(this.pageIndex,this.pageSize).subscribe(res => {
+      this.missions = res.content;
+      this.pageSize = res.size;
+      this.pageIndex = res.number;
+      this.totalElements = res.totalElements
     }
     );
   }
@@ -113,5 +121,9 @@ const dialogRef = this.dialog.open(MissionModalComponent,{
   }
  }
 
- 
+  onPageChange(event: PageEvent) {
+  this.pageIndex = event.pageIndex;
+  this.pageSize = event.pageSize;
+  this.loadMissions();
+ }
 }
