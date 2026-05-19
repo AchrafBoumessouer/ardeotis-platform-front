@@ -113,7 +113,7 @@ const dialogRef = this.dialog.open(MissionModalComponent,{
  openDeleteModal(mission:MissionResponseDto): void {
   const confirmed = confirm(`Supprimer ${mission.client} ${mission.title}`)
   if(confirmed) {
-    this.missionService.delete(mission.id).subscribe({
+    this.missionService.archive(mission.id).subscribe({
       next: () => {
         this.loadMissions()
       }
