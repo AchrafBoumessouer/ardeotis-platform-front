@@ -59,4 +59,8 @@ export class MissionService {
     delete(id: string): Observable<void> {
      return this.http.delete<void>(`${this.apiUrl}/${id}`);
     }
+
+     archive(id: string): Observable<void> {
+     return this.http.put<void>(`${this.apiUrl}/${id}/archive`,{});
+    }
 }
