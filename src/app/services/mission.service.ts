@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 
@@ -40,8 +40,20 @@ export class MissionService {
     private readonly http = inject(HttpClient);
     private readonly apiUrl = 'http://localhost:8080/api/v1/missions'
     
-    getAll(page: number, size: number): Observable<PageResponse<MissionResponseDto>> {
-     return this.http.get<PageResponse<MissionResponseDto>>(this.apiUrl, { params: { page, size}});
+    getAll(page: number, size: number,filters: any): Observable<PageResponse<MissionResponseDto>> {
+        let params = new HttpParams()
+                     .set('page', page)
+                     .set('size', size);
+        if(filters.status){
+            params = params.set('status', filters.status)
+        }
+        if(filters.client){
+            params = params.set('client', filters.client)
+        }
+        if(filters.skill){
+            params = params.set('skill', filters.skill)
+        }
+     return this.http.get<PageResponse<MissionResponseDto>>(this.apiUrl, { params});
     }
 
     getById(id: string): Observable<MissionResponseDto> {

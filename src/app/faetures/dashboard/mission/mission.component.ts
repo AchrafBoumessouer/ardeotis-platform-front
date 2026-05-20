@@ -1,6 +1,7 @@
 // angular import
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { MatTableModule } from "@angular/material/table";
 // icons
@@ -14,6 +15,9 @@ import { PageEvent } from "@angular/material/paginator";
 import { ConsultantModalComponent } from '../../modal/consultant-modal.component';
 import { MissionResponseDto, MissionService } from '../../../services/mission.service';
 import { MissionModalComponent } from '../../mission-modal/mission-modal.component';
+import { MatFormField, MatInput } from "@angular/material/input";
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-default',
@@ -22,9 +26,11 @@ import { MissionModalComponent } from '../../mission-modal/mission-modal.compone
     MatTableModule,
     MatIconModule,
     MatPaginatorModule,
-     
-    
-  ],
+    MatInput, FormsModule,
+    MatFormField,
+    MatSelectModule,
+    MatButtonModule
+],
   templateUrl: './mission.component.html',
   styleUrls: ['./mission.component.scss']
 })
@@ -35,17 +41,38 @@ export class MissionComponent implements OnInit {
   totalElements = 0;
   pageSize = 10 ;
   pageIndex = 0;
+  filters = {
+    status: '',
+    client:'',
+    skill:''
+  }
 
   // constructor
   constructor(private cd: ChangeDetectorRef) {
     this.iconService.addIcon(...[RiseOutline, FallOutline, SettingOutline, GiftOutline, MessageOutline]);
   
   }
+
   ngOnInit():void{
     this.loadMissions()
   }
+
+  resetFilters(){
+    this.filters = {
+      status:'',
+      skill: '',
+      client:''
+    }
+    this.pageIndex = 0
+    this.loadMissions()
+  }
+
+  applyFilters(){
+    this.pageIndex = 0;
+    this.loadMissions()
+  }
   loadMissions(){
-    this.missionService.getAll(this.pageIndex,this.pageSize).subscribe(res => {
+    this.missionService.getAll(this.pageIndex,this.pageSize,this.filters).subscribe(res => {
       this.missions = res.content;
       this.pageSize = res.size;
       this.pageIndex = res.number;
