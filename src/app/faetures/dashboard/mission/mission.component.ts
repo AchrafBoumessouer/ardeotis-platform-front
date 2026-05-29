@@ -50,6 +50,7 @@ export class MissionComponent implements OnInit {
       this.pageSize = res.size;
       this.pageIndex = res.number;
       this.totalElements = res.totalElements
+      this.cd.detectChanges()
     }
     );
   }

@@ -6,6 +6,7 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatNativeDateModule, MatOptionModule, provideNativeDateAdapter } from "@angular/material/core";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatInputModule } from "@angular/material/input";
+import { MatChipsModule } from "@angular/material/chips";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { CommonModule } from "@angular/common";
 
@@ -23,12 +24,14 @@ export type ModalMode = 'ADD' | 'EDIT' | 'VIEW';
         MatNativeDateModule,
         CommonModule,
         MatInputModule, 
+        MatChipsModule,
         ɵInternalFormsSharedModule, MatCheckboxModule, ReactiveFormsModule, MatDialogActions, MatDialogModule, MatFormField, MatSelectModule, MatOptionModule]
 })
 export class MissionModalComponent implements OnInit {
     form!: FormGroup;
     mode: ModalMode;
     mission: any;
+    skills: string[] = []
 
     constructor(
         private fb: FormBuilder,
@@ -69,5 +72,21 @@ export class MissionModalComponent implements OnInit {
         if (this.mode === 'ADD') return 'Ajouter mission';
         if (this.mode === 'EDIT') return 'Modifier missio,';
         return 'Details mission';
+    }
+
+    addSkill(skill:string){
+        const value = skill.trim()
+        if(value && !this.skills.includes(value)){
+            this.skills.push(value);
+            this.form.patchValue({skills: this.skills})
+        }
+    }
+
+    removeSkill(skill:string){
+        this.skills = this.skills.filter(s => s !== skill)
+        this.form.patchValue({
+            skills: this.skills
+        })
+        
     }
 }
