@@ -29,6 +29,26 @@
 
         <mat-checkbox formControlName="available">Disponible</mat-checkbox>
 
+         <mat-form-field appearence="outline" class="w-100">
+            <mat-label>Skills </mat-label>
+            <input matInput #skillInput formControlName="skills" (keydown.enter)="addSkill(skillInput.value); skillInput.value=''; $event.preventDefault()">
+       
+        </mat-form-field>
+        <div class="skills-list">
+            <mat-chip-set>
+                <mat-chip
+                *ngFor="let skill of skills"
+                removable="true"
+                (removed)="removeSkill(skill)">
+                 {{skill}}
+                 <button matChipRemove>
+                    X
+                 </button>
+                </mat-chip>
+            </mat-chip-set>
+
+        </div>
+
     </form>
 </mat-dialog-content>
 
