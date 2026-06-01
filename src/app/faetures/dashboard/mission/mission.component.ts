@@ -14,6 +14,7 @@ import { PageEvent } from "@angular/material/paginator";
 import { ConsultantModalComponent } from '../../modal/consultant-modal.component';
 import { MissionResponseDto, MissionService } from '../../../services/mission.service';
 import { MissionModalComponent } from '../../mission-modal/mission-modal.component';
+import { MatchingModalComponent } from '../../matching-modal/matching-modal.component';
 
 @Component({
   selector: 'app-default',
@@ -50,6 +51,7 @@ export class MissionComponent implements OnInit {
       this.pageSize = res.size;
       this.pageIndex = res.number;
       this.totalElements = res.totalElements
+      this.cd.detectChanges()
     }
     );
   }
@@ -108,6 +110,16 @@ const dialogRef = this.dialog.open(MissionModalComponent,{
       })
     }
   })
+ }
+
+  openMatchingModal(mission:any): void{
+const dialogRef = this.dialog.open(MatchingModalComponent,{
+    width: '1000px',
+    data: {
+      mission: mission
+    }
+  })
+
  }
 
  openDeleteModal(mission:MissionResponseDto): void {
