@@ -13,7 +13,7 @@ export class PositionnementService {
     
   
 
-     updateStatus(id: string,object:any): Observable<any> {
-     return this.http.put<any>(`${this.apiUrl}/${id}/statut`,object);
+     updateStatus(id: string,status:any): Observable<any> {
+     return this.http.put<any>(`${this.apiUrl}/${id}/status`,{status});
     }
 }

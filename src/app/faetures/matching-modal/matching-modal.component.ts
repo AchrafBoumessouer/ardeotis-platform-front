@@ -39,7 +39,7 @@ export type ModalMode = 'ADD' | 'EDIT' | 'VIEW';
 export class MatchingModalComponent implements OnInit {
    
     matchings: any = []
-    displayedColumns = ['consultant','score','matchedSkills','missingSkills','status']
+    displayedColumns = ['consultant','score','matchedSkills','missingSkills','status','actions']
 
     constructor(
         private fb: FormBuilder,
