@@ -12,6 +12,8 @@ import { CommonModule } from "@angular/common";
 import { MatchService } from "../../services/matching.service";
 import { MatProgressBarModule } from "@angular/material/progress-bar";
 import { MatTableModule } from "@angular/material/table";
+import { MatMenuModule } from "@angular/material/menu";
+import { PositionnementService } from "../../services/position.service";
 
 export type ModalMode = 'ADD' | 'EDIT' | 'VIEW';
 
@@ -29,6 +31,7 @@ export type ModalMode = 'ADD' | 'EDIT' | 'VIEW';
         CommonModule,
         MatInputModule, 
         MatChipsModule,
+        MatMenuModule,
         MatTableModule,
         MatProgressBarModule,
         ɵInternalFormsSharedModule, MatCheckboxModule, ReactiveFormsModule, MatDialogActions, MatDialogModule, MatFormField, MatSelectModule, MatOptionModule]
@@ -36,13 +39,14 @@ export type ModalMode = 'ADD' | 'EDIT' | 'VIEW';
 export class MatchingModalComponent implements OnInit {
    
     matchings: any = []
-    displayedColumns = ['consultant','score','matchedSkills','missingSkills']
+    displayedColumns = ['consultant','score','matchedSkills','missingSkills','status','actions']
 
     constructor(
         private fb: FormBuilder,
         private dialogRef: MatDialogRef<MatchingModalComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any,
         private matching: MatchService,
+        private position: PositionnementService,
         private cdr:ChangeDetectorRef
     ) {
        
@@ -63,6 +67,30 @@ export class MatchingModalComponent implements OnInit {
 
      close() {
         this.dialogRef.close()
+    }
+
+    getAllowedStatus(currentStatus: string) {
+        const transitions: Record<string, string[]> = {
+            INTERET_EXPRIME:['PRESENTE_AU_CLIENT'],
+            PRESENTE_AU_CLIENT:['ENTRETIEN_PLANIFIE','REFUSE'],
+            ENTRETIEN_PLANIFIE:['RETOUR_CLIENT_EN_ATTENTE','REFUSE'],
+            RETOUR_CLIENT_EN_ATTENTE:['VALIDE','REFUSE'],
+            VALIDE:[],
+            REFUSE:[],
+        }
+        return transitions[currentStatus] || [];
+
+    }
+
+    updateStatus(posID:string,status:string){
+        this.position.updateStatus( posID,status).subscribe({
+            next: () => {
+                this.loadMatching()
+            },
+            error: () => {
+                alert('transition status non autorisé')
+            }
+        })
     }
 
 }
