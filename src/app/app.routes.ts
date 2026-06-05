@@ -7,6 +7,7 @@ import { AdminLayout } from './faetures/theme/layouts/admin-layout/admin-layout.
 import { GuestLayoutComponent } from './faetures/theme/layouts/guest-layout/guest-layout.component';
 import { AuthGuard } from './guards/auth.guard';
 import { MissionComponent } from './faetures/dashboard/mission/mission.component';
+import { PositionnementComponent } from './faetures/dashboard/positionnement/positionnement.component';
 
 export const routes: Routes = [
  {
@@ -26,6 +27,10 @@ export const routes: Routes = [
        {
         path: 'dashboard/missions',
         component: MissionComponent
+      },
+      {
+        path: 'dashboard/positionnement',
+        component: PositionnementComponent
       },
       {
          path: 'home',

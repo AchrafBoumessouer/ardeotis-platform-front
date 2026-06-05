@@ -25,4 +25,8 @@ export class PositionnementService {
     getHistoriquePositionnement(id: number) {
         return this.http.get<HistoriquePositionnement[]>(`${this.apiUrl}/positionnements/${id}/historique`);
     }
+
+     getPositionnement() {
+        return this.http.get<any[]>(this.apiUrl);
+    }
 }
