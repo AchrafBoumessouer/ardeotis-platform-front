@@ -1,54 +1,22 @@
-.card {
-  .card-body.dashboard-card {
-    padding: 18px;
-    padding-bottom: 20px;
-  }
-}
-
-.user-group {
-  img {
-    position: relative;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    z-index: 2;
-    transition: all 0.1s ease-in-out;
-    border: 2px solid var(--bs-white);
-    + img {
-      margin-left: -14px;
-    }
-    &:hover {
-      z-index: 5;
-    }
-  }
-}
-
-.badge-circle {
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-}
-
-.actions{
+.modal{
+  position:fixed;
+  top:0; 
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
   display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 8px
+  z-index: 9999;
 }
 
-.actions button{
-  width: 36px;
-  height: 36px;
+.modal-content{
+  background: white;
+  color: black;
+  padding: 20px;
   border-radius: 8px;
-  transition: all 0.2 ease;
-}
-
-.actions button:hover{
-  transform: scale(1.1);
-}
-.table-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 16px;
+  min-width: 600px;
+  max-height: 80vh;
+  overflow-y: auto;
 }

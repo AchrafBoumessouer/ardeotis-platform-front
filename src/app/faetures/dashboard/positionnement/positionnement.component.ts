@@ -1,20 +1,15 @@
 // angular import
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { FormsModule } from '@angular/forms';
 import { MatTableModule } from "@angular/material/table";
 // icons
 import { IconService, IconDirective } from '@ant-design/icons-angular';
 import { FallOutline, GiftOutline, MessageOutline, RiseOutline, SettingOutline } from '@ant-design/icons-angular/icons';
-import { ConsultantResponseDto, ConsultantService } from '../../../services/consultant.service';
 import { MatIconModule } from '@angular/material/icon';
 import {  MatDialog } from '@angular/material/dialog';
 import { MatPaginatorModule } from "@angular/material/paginator";
-import { PageEvent } from "@angular/material/paginator";
-import { ConsultantModalComponent } from '../../modal/consultant-modal.component';
-import { MissionResponseDto, MissionService } from '../../../services/mission.service';
-import { MissionModalComponent } from '../../mission-modal/mission-modal.component';
-import { MatchingModalComponent } from '../../matching-modal/matching-modal.component';
+
 import { PositionnementService } from '../../../services/position.service';
 
 @Component({
@@ -23,6 +18,7 @@ import { PositionnementService } from '../../../services/position.service';
     CommonModule,
     MatTableModule,
     MatIconModule,
+    FormsModule,
     MatPaginatorModule,
      
     
@@ -44,7 +40,7 @@ export class PositionnementComponent implements OnInit {
   
   }
   ngOnInit():void{
-  
+  this.loadPositionnement()
   }
 
   loadPositionnement(){
@@ -52,6 +48,7 @@ export class PositionnementComponent implements OnInit {
       next:data => {
         this.positionnement = data;
         this.filterPositionnement = data
+        this.cd.detectChanges()
       },
       error: () => alert(' erreur chargement posi')
     })
@@ -63,7 +60,7 @@ export class PositionnementComponent implements OnInit {
   consultantFilter = '';
   missionFilter = '';
   statutFilter = '';
-  selectedPositionnement = null;
+  selectedPositionnement:any = null;
  applyFilters() {
   this.filterPositionnement = this.positionnement.filter((p : any) => (!this.consultantFilter || JSON.stringify(p).toLowerCase().includes(this.consultantFilter.toLowerCase())) &&
 (!this.missionFilter || JSON.stringify(p).toLowerCase().includes(this.missionFilter.toLowerCase())) && 
@@ -76,20 +73,23 @@ changeStatus(p:any,status:string){
       p.status = status;
       p.status = status;
     },
-    error: () => alert('error')
+    error: () => alert('Transition de statut non autorisée')
   })
 }
 
 showHistorique(p:any){
 this.selectedPositionnement = p 
+console.log(p)
 this.positionnementService.getHistoriquePositionnement(p.id).subscribe({
-  next: data => this.historique = data,
+  next: data => {this.historique = data
+    this.cd.detectChanges()
+  },
   error:() => alert('error')
 })
 }
 
 closeHistoque(){
-  this.selectedPositionnement= null;
+  this.selectedPositionnement = null;
   this.historique = []
 }
 

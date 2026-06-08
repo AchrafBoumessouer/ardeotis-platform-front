@@ -29,11 +29,11 @@
       <td>{{p.consultant.name}}</td>
       <td>{{p.mission.title}}</td>
       <td>{{p.status}}</td>
-      <td>{{p.createdAt}}</td>
+      <td>{{p.lastStatusUpdateAt}}</td>
       <td>
         <button (click)="changeStatus(p,'INTERET_EXPRIME')">Interet</button>
-        <button (click)="changeStatus(p,'REFUSE')"></button>
-        <button (click)="changeStatus(p,'VALIDE')"></button>
+        <button (click)="changeStatus(p,'REFUSE')">REFUSE</button>
+        <button (click)="changeStatus(p,'VALIDE')">valide</button>
         <button (click)="showHistorique(p)">Historique</button>
       </td>
 
@@ -43,7 +43,8 @@
 
 <div class="modal" *ngIf="selectedPositionnement">
   <div class="modal-content">
-    <h3>historique du positionnement {{ selectedPositionnement}}</h3>
+    <h3>historique du positionnement {{ selectedPositionnement?.consultant?.firstName}} {{ selectedPositionnement.consultant.lastName
+}}</h3>
     <table>
       <tr>
         <th>ancien status </th>
@@ -53,9 +54,9 @@
       </tr>
 
       <tr *ngFor="let h of historique">
-        <td>{{h.ancienStatus}}</td>
+        <td>{{h.ancienStatus}} </td>
         <td>{{h.newStatus}}</td>
-        <td>{{h.date}}</td>
+        <td>{{h.dateChagement}}</td>
         <td>{{h.commentaire}}</td>
       </tr>
     </table>
