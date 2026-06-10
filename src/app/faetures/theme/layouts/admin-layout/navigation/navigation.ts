@@ -54,6 +54,24 @@ export const NavigationItems: NavigationItem[] = [
     
     ]
   },
+  {
+    id: 'authentication',
+    title: 'Positionnement',
+    type: 'group',
+    icon: 'icon-navigation',
+    children: [
+        {
+        id: 'default',
+        title: 'Positionnement',
+        type: 'item',
+        classes: 'nav-item',
+        url: '/dashboard/positionnement',
+        icon: 'dashboard',
+        breadcrumbs: false
+      }
+    
+    ]
+  },
   
 
  

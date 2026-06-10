@@ -1,0 +1,65 @@
+<h2>Gestion des positionnement</h2>
+
+<div class="filters">
+  <input placeholder="consultant" [(ngModel)]="consultantFilter" (input)="applyFilters()" />
+    <input placeholder="mission" [(ngModel)]="missionFilter" (input)="applyFilters()" />
+   <select [(ngModel)]="statutFilter" (change)="applyFilters()">
+    <option value="">Tous</option>
+    <option value="INTERET_EXPRIME">INTERET_EXPRIME</option>
+    <option value="REFUSE">REFUSE</option>
+    <option value="VALIDE">VALIDE</option>
+
+   </select>
+
+</div>
+<table>
+  <thead>
+    <tr>
+      <th>Id pos</th>
+      <th>consultant</th>
+      <th>mission</th>
+      <th>status</th>
+      <th>date creation</th>
+      <th>actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let p of filterPositionnement">
+      <td>{{p.id}}</td>
+      <td>{{p.consultant.name}}</td>
+      <td>{{p.mission.title}}</td>
+      <td>{{p.status}}</td>
+      <td>{{p.lastStatusUpdateAt}}</td>
+      <td>
+        <button (click)="changeStatus(p,'INTERET_EXPRIME')">Interet</button>
+        <button (click)="changeStatus(p,'REFUSE')">REFUSE</button>
+        <button (click)="changeStatus(p,'VALIDE')">valide</button>
+        <button (click)="showHistorique(p)">Historique</button>
+      </td>
+
+    </tr>
+  </tbody>
+</table>
+
+<div class="modal" *ngIf="selectedPositionnement">
+  <div class="modal-content">
+    <h3>historique du positionnement {{ selectedPositionnement?.consultant?.firstName}} {{ selectedPositionnement.consultant.lastName
+}}</h3>
+    <table>
+      <tr>
+        <th>ancien status </th>
+        <th>nouveau status</th>
+        <th>date</th>
+        <th>commentaire</th>
+      </tr>
+
+      <tr *ngFor="let h of historique">
+        <td>{{h.ancienStatus}} </td>
+        <td>{{h.newStatus}}</td>
+        <td>{{h.dateChagement}}</td>
+        <td>{{h.commentaire}}</td>
+      </tr>
+    </table>
+    <button (click)="closeHistoque()">fermer</button>
+  </div>
+</div>
