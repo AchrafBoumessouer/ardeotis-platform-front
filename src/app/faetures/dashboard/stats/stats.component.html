@@ -11,27 +11,27 @@
       </mat-card-title>
 
       <mat-card-content>
-        {{stats?.consultantDisponibles ?? 0}}
+        {{stats?.consultants?.AVAILABLE ??  0}}
       </mat-card-content>
     </mat-card>
 
     <mat-card>
       <mat-card-title>
-        Consultants disponibles 
+        Missions actives 
       </mat-card-title>
 
       <mat-card-content>
-        {{stats?.missionOuvertes ?? 0}}
+        {{stats?.missions?.ACTIVE ?? 0}}
       </mat-card-content>
     </mat-card>
 
     <mat-card>
       <mat-card-title>
-        Consultants disponibles 
+        Positionnement présentés
       </mat-card-title>
 
       <mat-card-content>
-        {{stats?.positionnementsEncours ?? 0}}
+        {{stats?.positionnements?.PRESENTE_AU_CLIENT ?? 0}}
       </mat-card-content>
     </mat-card>
   </div>

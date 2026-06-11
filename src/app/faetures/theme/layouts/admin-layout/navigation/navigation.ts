@@ -27,6 +27,15 @@ export const NavigationItems: NavigationItem[] = [
     children: [
       {
         id: 'default',
+        title: 'Statistiques',
+        type: 'item',
+        classes: 'nav-item',
+        url: '/dashboard/stats',
+        icon: 'dashboard',
+        breadcrumbs: false
+      },
+      {
+        id: 'default',
         title: 'Consultants',
         type: 'item',
         classes: 'nav-item',
