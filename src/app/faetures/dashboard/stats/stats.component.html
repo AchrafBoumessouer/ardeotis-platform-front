@@ -1,0 +1,40 @@
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <h2>Dashboard</h2>
+    <button mat-raised-button color="primary" (click)="refresh()">Rafraichir</button>
+  </div>
+
+  <div class="stats-cards">
+    <mat-card class="stats-card">
+      <mat-card-title class="stat-title" >
+        Consultants disponibles 
+      </mat-card-title>
+
+      <mat-card-content class="stat-value">
+        {{stats?.consultants?.AVAILABLE ??  0}}
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="stats-card">
+      <mat-card-title class="stat-title">
+        Missions actives 
+      </mat-card-title>
+
+      <mat-card-content class="stat-value">
+        {{stats?.missions?.ACTIVE ?? 0}}
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="stats-card">
+      <mat-card-title class="stat-title">
+        Positionnement présentés
+      </mat-card-title>
+
+      <mat-card-content class="stat-value">
+        {{stats?.positionnements?.PRESENTE_AU_CLIENT ?? 0}}
+      </mat-card-content>
+    </mat-card>
+  </div>
+  
+</div>
+

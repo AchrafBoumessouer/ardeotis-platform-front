@@ -8,6 +8,7 @@ import { GuestLayoutComponent } from './faetures/theme/layouts/guest-layout/gues
 import { AuthGuard } from './guards/auth.guard';
 import { MissionComponent } from './faetures/dashboard/mission/mission.component';
 import { PositionnementComponent } from './faetures/dashboard/positionnement/positionnement.component';
+import { StatsComponent } from './faetures/dashboard/stats/stats.component';
 
 export const routes: Routes = [
  {
@@ -17,7 +18,7 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: '/dashboard/default',
+        redirectTo: '/dashboard/stats',
         pathMatch: 'full'
       },
       {
@@ -27,6 +28,10 @@ export const routes: Routes = [
        {
         path: 'dashboard/missions',
         component: MissionComponent
+      },
+       {
+        path: 'dashboard/stats',
+        component: StatsComponent
       },
       {
         path: 'dashboard/positionnement',
