@@ -15,6 +15,8 @@ import { ConsultantModalComponent } from '../../modal/consultant-modal.component
 import { MissionResponseDto, MissionService } from '../../../services/mission.service';
 import { MissionModalComponent } from '../../mission-modal/mission-modal.component';
 import { MatchingModalComponent } from '../../matching-modal/matching-modal.component';
+import {  MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-default',
@@ -33,6 +35,7 @@ export class MissionComponent implements OnInit {
   private iconService = inject(IconService);
   private missionService = inject(MissionService);
   private dialog = inject(MatDialog)
+  private snackBar = inject(MatSnackBar);
   totalElements = 0;
   pageSize = 10 ;
   pageIndex = 0;
@@ -77,6 +80,7 @@ export class MissionComponent implements OnInit {
   dialogRef.afterClosed().subscribe(result =>{
     if (result) {
       this.missionService.create(result).subscribe(() => {
+        this.snackBar.open('consultant suprimmée avec succées','Fermer',{duration:3000})
         this.loadMissions()
       })
     }
@@ -106,6 +110,7 @@ const dialogRef = this.dialog.open(MissionModalComponent,{
     if (result) {
       console.log('edit',result)
       this.missionService.update(result.id, result).subscribe(() => {
+        this.snackBar.open('consultant suprimmée avec succées','Fermer',{duration:3000})
         this.loadMissions()
       })
     }
@@ -127,6 +132,7 @@ const dialogRef = this.dialog.open(MatchingModalComponent,{
   if(confirmed) {
     this.missionService.archive(mission.id).subscribe({
       next: () => {
+        this.snackBar.open('consultant suprimmée avec succées','Fermer',{duration:3000})
         this.loadMissions()
       }
     })

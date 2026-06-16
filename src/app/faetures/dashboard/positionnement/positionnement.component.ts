@@ -8,9 +8,12 @@ import { IconService, IconDirective } from '@ant-design/icons-angular';
 import { FallOutline, GiftOutline, MessageOutline, RiseOutline, SettingOutline } from '@ant-design/icons-angular/icons';
 import { MatIconModule } from '@angular/material/icon';
 import {  MatDialog } from '@angular/material/dialog';
+import {  MatSnackBar } from '@angular/material/snack-bar';
 import { MatPaginatorModule } from "@angular/material/paginator";
+import {finalize} from 'rxjs'
 
 import { PositionnementService } from '../../../services/position.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-default',
@@ -30,6 +33,9 @@ export class PositionnementComponent implements OnInit {
   private iconService = inject(IconService);
   private positionnementService = inject(PositionnementService);
   private dialog = inject(MatDialog)
+  private snackBar = inject(MatSnackBar);
+  private titleService = inject(Title);
+  loading = false;
   totalElements = 0;
   pageSize = 10 ;
   pageIndex = 0;
@@ -40,17 +46,24 @@ export class PositionnementComponent implements OnInit {
   
   }
   ngOnInit():void{
+  this.titleService.setTitle('Missions')
   this.loadPositionnement()
   }
 
   loadPositionnement(){
-    this.positionnementService.getPositionnement().subscribe({
+    this.loading = true;
+    this.positionnementService.getPositionnement()
+    .pipe(finalize(() => this.loading = false))
+    .subscribe({
       next:data => {
         this.positionnement = data;
         this.filterPositionnement = data
         this.cd.detectChanges()
       },
-      error: () => alert(' erreur chargement posi')
+      error: () => {
+        this.snackBar.open('errrur lors de chargement des positionnement','Fermer',{duration: 3000})
+        alert(' erreur chargement posi')
+      }
     })
   }
   
@@ -72,8 +85,12 @@ changeStatus(p:any,status:string){
     next:() =>{
       p.status = status;
       p.status = status;
+      this.snackBar.open('Statut modifie avec succées','Fermer',{duration:3000})
     },
-    error: () => alert('Transition de statut non autorisée')
+    error: () => {
+      this.snackBar.open('Erreur lors de la modification','Fermer',{duration:3000})
+      alert('Transition de statut non autorisée')
+    }
   })
 }
 

@@ -13,6 +13,8 @@ import { MatIconModule } from '@angular/material/icon';
 import {  MatDialog } from '@angular/material/dialog';
 import { ConsultantModalComponent } from '../../modal/consultant-modal.component';
 import { MissionService } from '../../../services/mission.service';
+import {  MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-default',
@@ -30,8 +32,9 @@ import { MissionService } from '../../../services/mission.service';
 export class DefaultComponent implements OnInit {
   private iconService = inject(IconService);
   private consultantService = inject(ConsultantService);
-   private missionService = inject(MissionService);
+  private missionService = inject(MissionService);
   private dialog = inject(MatDialog)
+  private snackBar = inject(MatSnackBar);
   totalElements = 0;
   pageSize = 10 ;
   pageIndex = 0;
@@ -50,6 +53,7 @@ export class DefaultComponent implements OnInit {
       this.pageSize = res.size;
       this.pageIndex = res.number;
       this.totalElements = res.totalElements
+       this.snackBar.open('Statut modifie avec succées','Fermer',{duration:3000})
 
       this.cd.detectChanges();
     }
@@ -106,6 +110,7 @@ const dialogRef = this.dialog.open(ConsultantModalComponent,{
     if (result) {
       console.log('edit',result)
       this.consultantService.update(result.id, result).subscribe(() => {
+         this.snackBar.open('Statut modifie avec succées','Fermer',{duration:3000})
         this.loadConsultants()
       })
     }
@@ -117,6 +122,7 @@ const dialogRef = this.dialog.open(ConsultantModalComponent,{
   if(confirmed) {
     this.consultantService.delete(consultant.id).subscribe({
       next: () => {
+         this.snackBar.open('consultant suprimmée avec succées','Fermer',{duration:3000})
         this.loadConsultants()
       }
     })
