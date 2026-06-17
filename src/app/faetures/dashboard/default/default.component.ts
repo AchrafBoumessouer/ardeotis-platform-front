@@ -14,6 +14,7 @@ import {  MatDialog } from '@angular/material/dialog';
 import { ConsultantModalComponent } from '../../modal/consultant-modal.component';
 import { MissionService } from '../../../services/mission.service';
 import {  MatSnackBar } from '@angular/material/snack-bar';
+import { Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -35,6 +36,7 @@ export class DefaultComponent implements OnInit {
   private missionService = inject(MissionService);
   private dialog = inject(MatDialog)
   private snackBar = inject(MatSnackBar);
+  private titleService = inject(Title);
   totalElements = 0;
   pageSize = 10 ;
   pageIndex = 0;
@@ -45,6 +47,7 @@ export class DefaultComponent implements OnInit {
   
   }
   ngOnInit():void{
+    this.titleService.setTitle('Consultant')
     this.loadConsultants()
   }
   loadConsultants(){
@@ -53,7 +56,6 @@ export class DefaultComponent implements OnInit {
       this.pageSize = res.size;
       this.pageIndex = res.number;
       this.totalElements = res.totalElements
-       this.snackBar.open('Statut modifie avec succées','Fermer',{duration:3000})
 
       this.cd.detectChanges();
     }
@@ -81,6 +83,7 @@ export class DefaultComponent implements OnInit {
   dialogRef.afterClosed().subscribe(result =>{
     if (result) {
       this.consultantService.create(result).subscribe(() => {
+        this.snackBar.open('consultant crée avec succées','Fermer',{duration:3000})
         this.loadConsultants()
       })
     }

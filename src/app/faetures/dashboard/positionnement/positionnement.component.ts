@@ -46,7 +46,7 @@ export class PositionnementComponent implements OnInit {
   
   }
   ngOnInit():void{
-  this.titleService.setTitle('Missions')
+  this.titleService.setTitle('Positionnement')
   this.loadPositionnement()
   }
 
@@ -101,7 +101,10 @@ this.positionnementService.getHistoriquePositionnement(p.id).subscribe({
   next: data => {this.historique = data
     this.cd.detectChanges()
   },
-  error:() => alert('error')
+  error:() => {
+    this.snackBar.open('Erreur de chargement','Fermer',{duration:3000})
+    alert('error')
+  }
 })
 }
 
