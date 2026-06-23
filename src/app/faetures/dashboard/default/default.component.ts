@@ -51,7 +51,7 @@ export class DefaultComponent implements OnInit {
     this.loadConsultants()
   }
   loadConsultants(){
-    this.consultantService.getAll(this.pageIndex,this.pageSize).subscribe(res => {
+    this.consultantService.getAllConsultants(this.pageIndex,this.pageSize).subscribe(res => {
       this.consultants = res.content;
       this.pageSize = res.size;
       this.pageIndex = res.number;
