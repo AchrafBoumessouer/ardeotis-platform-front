@@ -54,7 +54,7 @@ export class MissionComponent implements OnInit {
     this.loadMissions()
   }
   loadMissions(){
-    this.missionService.getAll(this.pageIndex,this.pageSize).subscribe(res => {
+    this.missionService.getAllMissions(this.pageIndex,this.pageSize).subscribe(res => {
       this.missions = res.content;
       this.pageSize = res.size;
       this.pageIndex = res.number;

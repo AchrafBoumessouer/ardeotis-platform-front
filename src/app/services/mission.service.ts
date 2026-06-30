@@ -40,7 +40,7 @@ export class MissionService {
     private readonly http = inject(HttpClient);
     private readonly apiUrl = 'http://localhost:8080/api/v1/missions'
     
-    getAll(page: number, size: number): Observable<PageResponse<MissionResponseDto>> {
+    getAllMissions(page: number, size: number): Observable<PageResponse<MissionResponseDto>> {
      return this.http.get<PageResponse<MissionResponseDto>>(this.apiUrl, { params: { page, size}});
     }
 

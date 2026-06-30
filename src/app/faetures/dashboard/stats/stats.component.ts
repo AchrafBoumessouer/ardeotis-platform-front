@@ -59,7 +59,7 @@ export class StatsComponent implements OnInit {
  }
  
   loadStats() {
-    this.dashService.getStats().subscribe({
+    this.dashService.getKPI().subscribe({
       next:(data) => {
         this.stats = data;
         this.loading = false

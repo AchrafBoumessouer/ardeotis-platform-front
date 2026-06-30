@@ -35,7 +35,7 @@ export class DashboardService {
     private readonly apiUrl = 'http://localhost:8080/api/dashboard'
      
 
-    getStats() {
+    getKPI() {
         return this.http.get<DashboardStats>(`${this.apiUrl}/stats`);
     }
 

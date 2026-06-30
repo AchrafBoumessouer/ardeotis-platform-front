@@ -22,9 +22,7 @@ import { Title } from '@angular/platform-browser';
     MatTableModule,
     MatIconModule,
     FormsModule,
-    MatPaginatorModule,
-     
-    
+    MatPaginatorModule,   
   ],
   templateUrl: './positionnement.component.html',
   styleUrls: ['./positionnement.component.scss']
@@ -45,6 +43,7 @@ export class PositionnementComponent implements OnInit {
     this.iconService.addIcon(...[RiseOutline, FallOutline, SettingOutline, GiftOutline, MessageOutline]);
   
   }
+
   ngOnInit():void{
   this.titleService.setTitle('Positionnement')
   this.loadPositionnement()
@@ -96,7 +95,7 @@ changeStatus(p:any,status:string){
 
 showHistorique(p:any){
 this.selectedPositionnement = p 
-console.log(p)
+
 this.positionnementService.getHistoriquePositionnement(p.id).subscribe({
   next: data => {this.historique = data
     this.cd.detectChanges()
