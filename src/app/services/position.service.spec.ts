@@ -29,33 +29,42 @@ describe('PositionService',() => {
         expect(service).toBeTruthy()
     })
 
-    it('should get all missions with pagination',() =>{
-      const mockResponse = {
-        content:[],
-        totalElements: 0,
-        totalPages: 0,
-        size: 10,
-        number: 0
-      }
-      service.getAllMissions(0,10).subscribe(res => {
-        expect(res).toEqual(mockResponse as any)
-      })
-
-      const req = httpMock.expectOne(`${api}?page=0&size=10`)
-      expect(req.request.method).toBe('GET')
-      req.flush(mockResponse)
+    it('should update status',() =>{
+     const id = '123'
+     const status = 'ACCEPTE'
+     const response = { success : true}
+     service.updateStatus(id,status).subscribe(res => {
+        expect(res).toEqual(response)
+     })
+     const req = httpMock.expectOne(`${api}/${id}/status`)
+     expect(req.request.method).toBe('PUT')
+     expect(req.request.body).toEqual({status})
+     req.flush(response)
     })
-
-     it('should get mission by id ',() =>{
-        const mockResponse = { id: '1',title: 'Mission Java Angular'};
-        service.getById('1').subscribe(res => {
-            expect(res).toEqual(mockResponse as any)
-        
-        })
-    const req = httpMock.expectOne(`${api}/1`)
-    expect(req.request.method).toBe('GET')
-    req.flush(mockResponse)
-    })
-
     
+    it('should get historique positionnement', () => {
+        const id = 1
+        const mockHistorique = [ { commentaire: 'Test  comm'} ] as any
+
+        service.getHistoriquePositionnement(id).subscribe(res => {
+            expect(res).toEqual(mockHistorique)
+        })
+        const req = httpMock.expectOne(`{api}/${id}/historique`)
+        expect(req.request.method).toBe('GET')
+        req.flush(mockHistorique)
+    })
+
+    it('should get positionnemnts', () => {
+        const mockPositionnements = [
+            {id: 1, status: 'EN_ATTENTE'},
+            {id: 2, status: 'ACCEPTE'}
+        ]
+        service.getPositionnement().subscribe(res => {
+            expect(res).toEqual(mockPositionnements)
+        })
+        const req = httpMock.expectOne(api)
+        expect(req.request.method).toBe('GET')
+        req.flush(mockPositionnements)
+    })
+   
 })
