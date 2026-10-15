@@ -1,0 +1,54 @@
+.card {
+  .card-body.dashboard-card {
+    padding: 18px;
+    padding-bottom: 20px;
+  }
+}
+
+.user-group {
+  img {
+    position: relative;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    z-index: 2;
+    transition: all 0.1s ease-in-out;
+    border: 2px solid var(--bs-white);
+    + img {
+      margin-left: -14px;
+    }
+    &:hover {
+      z-index: 5;
+    }
+  }
+}
+
+.badge-circle {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.actions{
+  display: flex;
+  align-items: center;
+  gap: 8px
+}
+
+.actions button{
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  transition: all 0.2 ease;
+}
+
+.actions button:hover{
+  transform: scale(1.1);
+}
+.table-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
